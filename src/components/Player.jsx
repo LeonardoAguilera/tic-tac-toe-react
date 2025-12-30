@@ -1,11 +1,19 @@
 import { useState } from "react";
 
-export default function Player({ initialName, symbol, isActive }) {
+export default function Player({
+  initialName,
+  symbol,
+  isActive,
+  onChangeName,
+}) {
   const [playerName, setPlayerName] = useState(initialName);
   const [isEditing, setIsEditing] = useState(false);
 
   function handleEditClick() {
     setIsEditing((editing) => !editing);
+    if (isEditing) {
+      onChangeName(symbol, playerName);
+    }
   }
 
   function handleChange(event) {
@@ -13,7 +21,7 @@ export default function Player({ initialName, symbol, isActive }) {
     setPlayerName(event.target.value);
   }
 
-/*   function handleTyping(event) {
+  /*   function handleTyping(event) {
     let hexColor;
     const randomHexColor = (() => {
       // Generate a random number between 0 and 16777215 (0xFFFFFF)
